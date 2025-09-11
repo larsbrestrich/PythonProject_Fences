@@ -1,0 +1,80 @@
+CLIENT
+-Basic 1: include "prospector" and student IDS
+-Intermedite 3: require username first
+    -Advanced 6: require password, await correct password from server, only proceed if matching
+    -Intermediate 1: include required username
+-Basic 2: send an initialise request which joins an existing game with a game ID, or start a new game if no ID provided and recieve new game ID
+    -Intermediate 4: include optional size of grid
+    -Advanced 1: include optional numbre of players
+-Basic 4: user can change currently selected cell
+-Basic 4: option to build fence, and send built fence to server
+-Basic 4: input loop 
+    -Advanced 3: interruptable by timer
+-Intermediate 5: return to initia
+-Intermediate 5: leave current game on game close 
+    -Intermediate 5: inform server if client leaves
+-Advanced 6: step through sent game history by acting as if client is playing both players
+
+VIEW
+-Basic 3: User friendly representation of grid
+    -Intermediate 2: different colours 
+-Basic 4: Display currently selected cell
+-Basic 4: take one character of input at a time
+-Intermediate 5: leave current game key/button
+-Advanced 3: display timer to user
+
+SERVER
+-Intermediate 3: send player object when login recieved
+    -Advanced 6: refuse login requests if client supplies incorrect password
+-Basic 2: recieve initialisation requests, look for existing game or create a new instance of game, sends back game ID
+    -Intermediate 4: recieve optional game dimensions
+    -Advanced 1: tell client current players and maximum
+-Basic 4: recieve fence requests, update game state, send updated game state to clients
+-Intermediate 3: when game ends, update player's statistics with win/loss
+-Advanced 3/4: Boot player from game if game says so
+
+LEADERBOARD
+-Intermediate 3: store dictionary of {player ID: player object}
+
+PLAYER
+-Intermediate 3: store wins, losses
+    -Intermediate 1: store username
+    -Advanced 6: store password
+    -Intermediate 4a: store draws
+-Advanced 5: store game objects of all games player
+
+GAME
+-Basic 2: initialise empty grid
+    -Intermediate 4: pass optional grid dimensions
+-Basic 3: store score
+    -Basic 4a: update score if land claimed
+    -Advanced 2: change score based on value of cell
+-Basic 2: store current players in game
+    -Advanced 1: host always starts. only start game when host plays.
+    -Advanced 1: store maximum number of users in game
+    -Advanced 1 (optional): send count of current number of players to client
+-Basic 4: track turns
+    -Advanced 3: tell timer when turn is up
+    -Advanced 3: boot user from game when timer says timer is up
+-Basic 4: build a fence
+    -Basic 4a: check if fence completes a square of fences (no matter who owns fences); claim land if yes, next turn if no
+-Basic 5: check end conditions (all land claimed)
+    -Intermediate 4a: check if game is draw
+-Advanced 5: save turn actions to game history
+-Advanced 6: once game is over, send game to all players
+
+TIMER (component of server)
+-Advanced 3: timer loops for each player in game
+-Advanced 3: timer is paused when turn ends
+-Advanced 3: if timer runs out, lose
+ 
+GRID
+-Basic 2: create empty grid of cells double -1 (e.g default 5x5 grid produces a 9x9 grid), and set all uneven values of rows and columns as land
+    -Intermediate 4: of dimensions optionally requested by game creator
+-Basic 4: which cell is currently selected
+    -Intermediate 2: send to view owners of cells
+-Basic 4: change selected cell type to fence
+
+CELL
+-Basic 2: type can be none, land or fence. owner can be none, player 1 or player 2
+    -Advanced 2: types can be regular, copper, silver, gold
